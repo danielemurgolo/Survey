@@ -15,27 +15,27 @@ class Survey(models.Model):
 
 
 class RadioQuestion(models.Model):
-    question = models.CharField(max_length=200)
+    text = models.CharField(max_length=200)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.question
+        return self.text
 
 
 class RadioAnswer(models.Model):
-    answer = models.CharField(max_length=200)
+    text = models.CharField(max_length=200)
     question = models.ForeignKey(RadioQuestion, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.answer
+        return self.text
 
 
 class IntegerQuestion(models.Model):
-    question = models.CharField(max_length=200)
+    text = models.CharField(max_length=200)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.question
+        return self.text
 
 
 # class Country(models.Model):
@@ -54,11 +54,11 @@ class IntegerQuestion(models.Model):
 
 
 class CountryQuestion(models.Model):
-    question = models.CharField(max_length=200)
+    text = models.CharField(max_length=200)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.question
+        return self.text
 
 
 class Response(models.Model):

@@ -1,22 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}
-{{questionnaire.name}}
-{% endblock title %}
 
 {% block content %}
-<h1>{{questionnaire.description}}</h1>
-{% for question in  questionnaire.radioquestion_set.all%}
-<p>{{question.text}}</p>
-<form>
-{% for choice in  question.choice_set.all%}
-<input type="radio" name={{question.text}}>{{choice.text}}</input>
-{% endfor %}
-</form>
-{% endfor %}
+<h2>{{survey.name}}</h2>
+<h3>{{survey.description}}</h3>
 
-{% for question in  questionnaire.integerquestion_set.all%}
-<p>{{question.text}}</p>
-<input type="integer" name={{question.text}}></input>
-{% endfor %}
+<form method="POST">
+
+    {% csrf_token %}
+    {% for question in  radio_questions%}
+    <p>{{question.text}}</p>
+    {% for answer in  question.radioanswer_set.all%}
+    <label>
+        <input type="radio" name="radio_question_{{question.id}}" value="{{answer.id}}">
+        {{answer.text}}
+    </input>
+    {% endfor %}
+    {% endfor %}
+
+    {% for question in  integer_questions%}
+    <p>{{question.text}}</p>
+    <input type="number" name="integer_question_{{question.id}}" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+    {% endfor %}
+
+    {% if country_question %}
+    <p>{{country_question.text}}</p>
+    <select name="country">
+        <option value="">Select a country</option>
+        {% for country in countries %}
+        <option value="{{country.id}}">{{country.name}}</option>
+        {% endfor %}
+    </select>
+    <select name="region">
+        <option value="">Select a region</option>
+        {% for region in regions %}
+        <option value="{{region.id}}">{{region.name}}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    <p>
+    <button type="submit">Submit</button>
+    </p>
+
+</form>
+
 {% endblock content %}
 
