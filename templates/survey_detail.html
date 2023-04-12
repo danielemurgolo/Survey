@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+{{questionnaire.name}}
+{% endblock title %}
+
+{% block content %}
+<h1>{{questionnaire.description}}</h1>
+{% for question in  questionnaire.radioquestion_set.all%}
+<p>{{question.text}}</p>
+<form>
+{% for choice in  question.choice_set.all%}
+<input type="radio" name={{question.text}}>{{choice.text}}</input>
+{% endfor %}
+</form>
+{% endfor %}
+
+{% for question in  questionnaire.integerquestion_set.all%}
+<p>{{question.text}}</p>
+<input type="integer" name={{question.text}}></input>
+{% endfor %}
+{% endblock content %}
+
