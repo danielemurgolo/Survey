@@ -1,5 +1,6 @@
 from django.db import models
 from cities_light.models import Country, Region
+from django.urls import reverse
 
 # from cities_light.models import Region, Country
 
@@ -12,6 +13,9 @@ class Survey(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("survey:detail", kwargs={"pk": self.pk})
 
 
 class RadioQuestion(models.Model):

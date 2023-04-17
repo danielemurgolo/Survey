@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.views import View
 from django.db.models import Q
 from .models import Survey, RadioQuestion, RadioAnswer, IntegerQuestion, CountryQuestion
@@ -49,11 +50,8 @@ class SurveyDetailView(DetailView):
                     response=response, question=question, value=value
                 )
             elif key == "country":
-                print("***********************************************")
-                print("Value:", Country.objects.get(id=int(value)))
                 question = survey.countryquestion_set.first()
                 question_id = question.id
-                print("////////////////////////////////////////////////")
                 CountryResponse.objects.create(
                     response=response,
                     question=question,
@@ -63,7 +61,6 @@ class SurveyDetailView(DetailView):
             elif key == "region":
                 question = survey.countryquestion_set.first()
                 question_id = question.id
-                print("-----------------------------------------------------")
                 CountryResponse.objects.filter(
                     Q(response=response) & Q(question=question)
                 ).update(region=Region.objects.get(id=int(value)))
@@ -73,3 +70,21 @@ class SurveyDetailView(DetailView):
 class ThankYouView(View):
     def get(self, request):
         return render(request, "thank_you.html")
+
+
+class EditSurveyView(UpdateView):
+    model = Survey
+    template_name = "survey_edit.html"
+    fields = ["name", "description"]
+
+
+class DeleteSurveyView(DeleteView):
+    model = Survey
+    template_name = "survey_delete.html"
+    success_url = reverse_lazy("survey:home")
+
+
+class CreateSurveyView(CreateView):
+    model = Survey
+    template_name = "survey_new.html"
+    fields = ["name", "description"]
