@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import DeleteView, UpdateView
+from django.http import JsonResponse
 from django.views import View
 from django.db.models import Q
 from .models import Survey, RadioQuestion, RadioAnswer, IntegerQuestion, CountryQuestion
@@ -88,3 +89,13 @@ class CreateSurveyView(CreateView):
     model = Survey
     template_name = "survey_new.html"
     fields = ["name", "description"]
+
+
+def ajax_load_regions(request):
+    country_id = request.GET.get("country_id")
+    if not country_id:
+        return JsonResponse({"success": False})
+    country = get_object_or_404(Country, pk=country_id)
+    regions = Region.objects.filter(country=country)
+    data = [{"id": region.id, "name": region.name} for region in regions]
+    return JsonResponse(data, safe=False)

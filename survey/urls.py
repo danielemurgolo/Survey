@@ -8,6 +8,7 @@ from .views import (
     EditSurveyView,
     DeleteSurveyView,
     CreateSurveyView,
+    ajax_load_regions,
 )
 
 app_name = "survey"
@@ -18,5 +19,6 @@ urlpatterns = [
     path("<int:pk>/edit/", EditSurveyView.as_view(), name="edit"),
     path("<int:pk>/delete", DeleteSurveyView.as_view(), name="delete"),
     path("thank-you/", ThankYouView.as_view(), name="thank_you"),
+    path("ajax/load-regions/", ajax_load_regions, name="ajax_load_regions"),
     path("", SurveyListView.as_view(), name="home"),
 ]

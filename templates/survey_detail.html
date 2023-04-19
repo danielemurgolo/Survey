@@ -4,7 +4,7 @@
 <h2>{{survey.name}}</h2>
 <h3>{{survey.description}}</h3>
 
-<form method="POST">
+<form method="POST" id="surveyForm">
 
     {% csrf_token %}
     {% for question in  radio_questions%}
@@ -24,17 +24,17 @@
 
     {% if country_question %}
     <p>{{country_question.text}}</p>
-    <select name="country">
+    <select name="country" id="id_country">
         <option value="">Select a country</option>
         {% for country in countries %}
         <option value="{{country.id}}">{{country.name}}</option>
         {% endfor %}
     </select>
-    <select name="region">
-        <option value="">Select a region</option>
+    <select name="region" id="id_region" data-url="{% url 'survey:ajax_load_regions' %}">
+        {% comment %} <option value="">Select a region</option>
         {% for region in regions %}
         <option value="{{region.id}}">{{region.name}}</option>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
     </select>
     {% endif %}
     <p>
@@ -42,6 +42,29 @@
     </p>
 
 </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#id_country').change(function() {
+    var countryId = $(this).val();
+    var url = $('#id_region').data('url');
+    $.ajax({
+      url: url,
+      data: {
+        'country_id': countryId
+      },
+      success: function(data) {
+        var options = '<option value="">Select a region</option>';
+        for (var i = 0; i < data.length; i++) {
+          options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+        }
+        $('#id_region').html(options);
+      }
+    });
+  });
+});
+</script>
 
 {% endblock content %}
 
