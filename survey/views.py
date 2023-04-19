@@ -5,6 +5,7 @@ from django.views.generic.edit import DeleteView, UpdateView
 from django.http import JsonResponse
 from django.views import View
 from django.db.models import Q
+from django.forms import inlineformset_factory
 from .models import Survey, RadioQuestion, RadioAnswer, IntegerQuestion, CountryQuestion
 from .models import Response, RadioResponse, IntegerResponse, CountryResponse
 from cities_light.models import Country, Region
@@ -89,6 +90,15 @@ class CreateSurveyView(CreateView):
     model = Survey
     template_name = "survey_new.html"
     fields = ["name", "description"]
+
+
+AnswerFormSet = inlineformset_factory(
+    RadioQuestion,
+    RadioAnswer,
+    fields=["text"],
+    extra=1,
+    can_delete=True,
+)
 
 
 def ajax_load_regions(request):

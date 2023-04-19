@@ -7,6 +7,7 @@
 <form method="POST" id="surveyForm">
 
     {% csrf_token %}
+    <a href="{% url 'survey:new_radio_question' %}">+ Add a radio question</a>
     {% for question in  radio_questions%}
     <p>{{question.text}}</p>
     {% for answer in  question.radioanswer_set.all%}

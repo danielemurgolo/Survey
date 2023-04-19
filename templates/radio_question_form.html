@@ -1,0 +1,35 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2>Answers</h2>
+    <div id="answer-formset">
+      {{ form.answers.management_form }}
+      {% for answer_form in form.answers %}
+        {{ answer_form.as_p }}
+      {% endfor %}
+    </div>
+    <button type="button" id="add-answer">Add Answer</button>
+    <input type="submit" value="Save">
+  </form>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const addAnswerButton = document.getElementById('add-answer');
+    const answerFormset = document.getElementById('id_answers-TOTAL_FORMS');
+    let formCount = "{{ form.answers.total_form_count|safe }}";
+  
+    addAnswerButton.addEventListener('click', () => {
+      const newForm = document.createElement('div');
+      newForm.innerHTML = `
+        <div class="form-group">
+          <label for="id_answers-${formCount}-text">Answer ${formCount + 1}</label>
+          <input type="text" name="answers-${formCount}-text" id="id_answers-${formCount}-text" maxlength="200">
+        </div>
+      `;
+      answerFormset.value = parseInt(answerFormset.value) + 1;
+      formCount++;
+      const formsetContainer = document.getElementById('answer-formset');
+      formsetContainer.insertBefore(newForm, formsetContainer.lastElementChild);
+    });
+  </script>
+  
