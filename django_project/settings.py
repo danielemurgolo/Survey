@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cities_light",
     "survey.apps.SurveyConfig",
+    "django_extensions",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
