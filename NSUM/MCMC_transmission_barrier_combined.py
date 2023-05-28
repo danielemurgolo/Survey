@@ -163,7 +163,7 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
     sigma_curr = sigma_start
 
     keep = np.round(np.linspace(burnin + 1, burnin + iterations, size))
-    keep_index = 1
+    keep_index = 0
 
     for i in range(burnin + iterations):
         if i % 10 == 0:
@@ -217,7 +217,7 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
 
             accept = min(0, ratio)
 
-            logu = np.random.uniform(0, 1, 1)
+            logu = np.log(np.random.uniform(0, 1, 1))
 
             if logu < accept:
                 mK_curr[j] = mK_new
@@ -245,7 +245,7 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
                 print("I broke on rhok where my k was ", j, " and my new.rhok was ", rhok_new, "\n")
             accept = min(0, ratio)
 
-            logu = np.random.uniform(0, 1, 1)
+            logu = np.log(np.random.uniform(0, 1, 1))
 
             if logu < accept:
                 rho_curr[j] = rhok_new
@@ -271,7 +271,7 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
                 print("I broke on tauK where my K was ", index_this_k, " and my new.tauK was ", tauK.new, "\n")
             accept = min(0, ratio)
 
-            logu = np.random.uniform(0, 1, 1)
+            logu = np.log(np.random.uniform(0, 1, 1))
 
             if logu < accept:
                 tauK_curr[j] = tauK_new
@@ -299,7 +299,7 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
                     print("I broke on qik for j ", j, " and k ", k, " where my new qik was ", qik_new, "\n")
                 accept = min(0, ratio)
 
-                logu = np.random.uniform(0, 1, 1)
+                logu = np.log(np.random.uniform(0, 1, 1))
 
                 if logu < accept:
                     q_curr[j,k] = qik_new
@@ -315,12 +315,12 @@ def mcmc_comb(data_mat, data_dict, iterations, burnin, size = None, mu_prior = (
         mu_curr = mu_new
         mu = mu_curr
 
-        sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 1 / 2 * sum((np.log(d) - mu) ** 2), 1))
+        sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2,  2 / sum((np.log(d) - mu) ** 2), 1))
         while (sigma_new < sigma_prior[0] or sigma_new > sigma_prior[1]):
-            sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 1 / 2 * sum((np.log(d) - mu) ** 2), 1))
+            sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 2 / sum((np.log(d) - mu) ** 2), 1))
         sigma_curr = sigma_new
 
-        if i == keep[keep_index]:
+        if i == keep[keep_index]-1:
             mu_values[keep_index] = mu_curr
             sigma_values[keep_index] = sigma_curr
             mK_values[:, keep_index] = mK_curr
@@ -343,4 +343,5 @@ if __name__ == "__main__":
             if len(y) > 0:
                 data[y[0]] = np.array([float(i) for i in y[1:]])
     y, d = simulate_comb(data, 100)
-    print(mcmc_comb(y, data, 100,50))
+    print(mcmc_comb(y, data, 100,50)[0])
+    print(np.mean(mcmc_comb(y, data, 100,50)[0]))

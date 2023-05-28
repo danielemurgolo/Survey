@@ -106,7 +106,7 @@ def mcmc_trans(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 
     mu_curr = mu_start
     sigma_curr = sigma_start
     keep = np.round(np.linspace(burnin + 1, burnin + iterations, size))
-    keep_index = 1
+    keep_index = 0
 
     for i in range(burnin + iterations):
         if i % 10 == 0:
@@ -193,7 +193,7 @@ def mcmc_trans(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 
         while (sigma_new < sigma_prior[0] or sigma_new > sigma_prior[1]):
             sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 1 / 2 * sum((np.log(d) - mu) ** 2), 1))
         sigma_curr = sigma_new
-        if i == keep[keep_index]:
+        if i == keep[keep_index]-1:
             d_values[:, keep_index] = d_curr
             wK_values[:, keep_index] = wK_curr
             zK_values[:, keep_index] = zK_curr
@@ -208,9 +208,10 @@ def mcmc_trans(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 
 
 if __name__ == "__main__":
     data = {}
-    data["known"] = np.array([31000, 11000, 21000, 5300, 38000, 33000])
-    data["unknown"] = np.array([1400000])
-    data["N"] = np.array([46000000])
+    with open('/Users/tomas/Downloads/McCarty.txt') as f:
+        for line in f:
+            y = line.split()
+            if len(y) > 0:
+                data[y[0]] = np.array([float(i) for i in y[1:]])
     y, d = simulate_trans(data, 100)
-    print(y)
     print(mcmc_trans(y, data, 100, 50)[0])

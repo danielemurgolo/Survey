@@ -3,7 +3,7 @@ import scipy as sp
 import killworth as kw
 
 
-def simulate_rd(data_dict, n, mu = 5, sigma = 1):
+def simulate_rd(data_dict, n, mu=5, sigma=1):
     if "mu" in data_dict:
         if len(data_dict["mu"]) > 0:
             mu = data_dict["mu"][0]
@@ -18,8 +18,7 @@ def simulate_rd(data_dict, n, mu = 5, sigma = 1):
     known_all = np.concatenate((data_dict['known'], data_dict['unknown']))
     known_all_len = len(known_all)
 
-    p_pops = known_all / N
-
+    p_pops = known_all/N
     y = np.empty((n, known_all_len))
 
     for i in range(n):
@@ -50,8 +49,8 @@ def loglik_di_rd(data_mat, mu, sigma, di, N, known, NK):
     return loglik
 
 
-def mcmc_rd(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 8), sigma_prior=(0, 2), NK_tuning=None, d_tuning=None):
-
+def mcmc_rd(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 8), sigma_prior=(1/4, 2), NK_tuning=None,
+            d_tuning=None):
     known = data_dict["known"]
     known_len = len(known)
     N = data_dict["N"]
@@ -79,8 +78,8 @@ def mcmc_rd(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 8),
     d_curr = d_start
     mu_curr = mu_start
     sigma_curr = sigma_start
-    keep = np.round(np.linspace(burnin + 1, burnin + iterations, size))
-    keep_index = 1
+    keep = np.round(np.linspace(burnin+1, burnin + iterations, size))
+    keep_index = 0
 
     for i in range(burnin + iterations):
         if i % 10 == 0:
@@ -125,7 +124,7 @@ def mcmc_rd(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 8),
                 ratio = loglik_NK_rd(data_mat, index_this_k, N, d, NK_new) - loglik_NK_rd(data_mat, index_this_k, N, d,
                                                                                           NK_old)
                 accept = min(0, ratio)
-                logu = np.random.uniform(0, 1, 1)
+                logu = np.log(np.random.uniform(0, 1, 1))
 
                 if logu < accept:
                     NK_curr[j] = NK_new
@@ -133,21 +132,22 @@ def mcmc_rd(data_mat, data_dict, iterations, burnin, size=None, mu_prior=(3, 8),
                     NK_curr[j] = NK_old
         NK = NK_curr
 
-        mu_new = np.random.normal(sum(np.log(d)) / n, sigma / np.sqrt(n), 1)
+        mu_new = np.random.normal(np.sum(np.log(d)) / n, sigma / np.sqrt(n), 1)
 
         while (mu_new < mu_prior[0] or mu_new > mu_prior[1]):
-            mu_new = np.random.normal(sum(np.log(d)) / n, sigma / np.sqrt(n), 1)
+            mu_new = np.random.normal(np.sum(np.log(d)) / n, sigma / np.sqrt(n), 1)
 
         mu_curr = mu_new
         mu = mu_curr
 
-        sigma_new = 1/np.sqrt(np.random.gamma((n - 1)/2, 1/2*sum((np.log(d)-mu)**2), 1))
+        sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 2 / np.sum((np.log(d) - mu) ** 2), 1))
         while (sigma_new < sigma_prior[0] or sigma_new > sigma_prior[1]):
-            sigma_new = 1/np.sqrt(np.random.gamma((n - 1)/2, 1/2*sum((np.log(d)-mu)**2), 1))
+            sigma_new = 1 / np.sqrt(np.random.gamma((n - 1) / 2, 2 / np.sum((np.log(d) - mu) ** 2), 1))
         sigma_curr = sigma_new
-        if i == keep[keep_index]:
+        if i == keep[keep_index]-1:
             mu_values[keep_index] = mu_curr
             sigma_values[keep_index] = sigma_curr
+            print(NK_curr)
             NK_values[:, keep_index] = NK_curr
             d_values[:, keep_index] = d_curr
             keep_index = keep_index + 1
@@ -162,5 +162,5 @@ if __name__ == "__main__":
             y = line.split()
             if len(y) > 0:
                 data[y[0]] = np.array([float(i) for i in y[1:]])
-    y, d = simulate_rd(data, 10)
-    print(mcmc_rd(y, data, 10, 5))
+    y, d = simulate_rd(data, 100)
+    print(mcmc_rd(y, data, 100, 50)[0])
