@@ -26,6 +26,17 @@
             margin-bottom: 20px;
             border-radius: 5px;
         }
+
+        .footer {
+            background-color: #f5f8fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            max-width: 100px;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -36,6 +47,9 @@
     <div class="container">
         {% block content %}{% endblock content %}
     </div>
+    <footer class="footer">
+        <img class="footer-logo" src="EN_Black_Chalmers_GU.png" alt="School Logo">
+    </footer>
 
     <!-- Bootstrap JS (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
