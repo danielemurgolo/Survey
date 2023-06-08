@@ -1,16 +1,45 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Survey</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f5f8fa;
+        }
 
-    <head>
-        <title>Survey</title>
-    </head>
+        .navbar {
+            background-color: #ffffff;
+        }
 
-    <body>
-        <header>
-            <h1><a href="{% url 'survey:home' %}">Home</a></h1>
-        </header>
-        <div>
-            {% block content %}{% endblock content %}
-        </div>
-    </body>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
 
+        .tweet {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'survey:home' %}">Home</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
