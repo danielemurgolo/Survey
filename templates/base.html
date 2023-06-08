@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>Survey</title>
@@ -34,7 +35,7 @@
         }
 
         .footer-logo {
-            max-width: 100px;
+            max-width: 400px;
             height: auto;
         }
     </style>
@@ -48,7 +49,7 @@
         {% block content %}{% endblock content %}
     </div>
     <footer class="footer">
-        <img class="footer-logo" src="EN_Black_Chalmers_GU.png" alt="School Logo">
+         <img class="footer-logo" src="{% static 'images/EN_Black_Chalmers_GU.png' %}" alt="School Logo">
     </footer>
 
     <!-- Bootstrap JS (optional) -->
