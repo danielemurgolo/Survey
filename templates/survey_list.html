@@ -4,7 +4,10 @@
 
 {% block content %}
 <p>
-    <a href="{% url 'survey:new' %}">+ New</a>
+    <b>
+    <a>Network scale-up Survey <br> </a>
+    <a>These surveys are used to estimate the sizes of sub-population. Data collected from these surveys can not be traced back to the respondents</a>
+    </b>
 </p>
 {% for survey in  survey_list%}
 <div class="card">
@@ -14,10 +17,7 @@
     <div class="card-body">
         {{survey.description}}
     </div>
-    <div class="card-footer text-muted">
-        <a href="{% url 'survey:edit' survey.pk %}">Edit</a> | 
-        <a href="{% url 'survey:delete' survey.pk %}">Delete</a>
-    </div>
+
 </div>
 <br />
 {% endfor %}
