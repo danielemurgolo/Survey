@@ -12,7 +12,34 @@ Our mission is to provide a robust system that generates valuable insights, aidi
 1. Clone the repository:
    
    ```
-   $ git clone https://github.com/danielemurgolo/Survey.git
+   git clone https://github.com/danielemurgolo/Survey.git
    ```
    
-3. 
+2. Create a virtual environment (recommended but optional):
+   ```
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+
+3. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Apply database migration:
+
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py cities_light
+   ```
+
+5. Create superuser (Admin):
+   ```
+   python manage.py createsuperuser
+   ```
+
+6. Start server:
+   ```
+   python manage.py runserver
+   ```
