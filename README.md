@@ -55,16 +55,29 @@ For this tutorial, we are going show the steps you need to take to create your o
 
 When accessing the web application, i.e. http://localhost:8000, the empty home page should look like this:
 
-![Empty Home PAge](images/survey_home_empty.png)
+![survey_home_empty](https://github.com/danielemurgolo/Survey/assets/98823551/93f594c1-5002-4ac1-961b-fa4638da5ffb)
+
 
 ### Admin Page
 
 The first step to take is to go to the admin page, http://localhost:8000/admin, you should be prompted with a log in page like the following:
 
-![Admin Log In page](images/admin_login.png)
+![admin_login](https://github.com/danielemurgolo/Survey/assets/98823551/8df183c2-091b-47a7-b0bf-d450749576b5)
+
 
 You should log in using the credentials you created using the command ```python manage.py createsuperuser```. After logging in, the admin page looks like this:
 
-![Admin Page](images/admin_page.png)
+![admin_page](https://github.com/danielemurgolo/Survey/assets/98823551/a337614c-02a7-4b67-bf1b-2d505a1b028d)
 
-Now, to create a survey you can press on ```Surveys``` and then press 
+
+### Creating a Survey
+
+Now, to create a survey you can press on ```Surveys``` and then press the ```Add Survey``` button. Here you can fill in the form to create the survey. After creating the survey you can edit it and delete it as shown in the video below. 
+
+https://github.com/danielemurgolo/Survey/assets/98823551/11dd3d76-d5bc-4438-acc8-343d8c3fe200
+
+### Creating a Question
+
+
+
+
