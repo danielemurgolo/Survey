@@ -49,6 +49,20 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    
 ## Usage
 
-When accessing the web application, for example at http://localhost:8000, the empty home page should look like this:
+For this tutorial, we are going show the steps you need to take to create your own survey. We are going to consider the URL of the web app as HTTP:localhost:8000, you should replace it with your own URL.
+
+### Home Page
+
+When accessing the web application, i.e. http://localhost:8000, the empty home page should look like this:
+
+![Empty Home PAge](images/survey_home_empty.png)
+
+### Admin Page
+
+The first step to take is to go to the admin page, http://localhost:8000/admin, you should be prompted with a log in page like the following:
+
+![Admin Log In page](images/admin_login.png)
+
+You should log in using the credentials you created using the command ```python manage.py createsuperuser```. After logging in the admin page looks like this:
 
 
