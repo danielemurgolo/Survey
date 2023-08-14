@@ -5,6 +5,13 @@ Welcome to the Survey Data Collection System! This system aims to efficiently ga
 - [Key Features](#key-features)
 - [Installation](#installation)
 - [Usage](#usage)
+   - [Home Page](#home-page)
+   - [Admin Page](#admin-page)
+   - [Creating a Survey](#creating-a-survey)
+   - [Creating a Question](#creating-a-question)
+   - [Complete Example](#complete-example)
+- [License](#license)
+- [Contact](#contact)
 
 ## Key Features
 1. **Web-based Questionnaire**: participants easily access and respond to the questionnaire online.
