@@ -123,7 +123,7 @@ https://github.com/danielemurgolo/Survey/assets/98823551/4554895e-d658-4e06-ae06
 
 ## License
 
-This project is licensed under the MIT License - see the [`LICENSE`](./LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [`LICENSE`](./LICENSE) file for details.
 
 ## Contact
 
