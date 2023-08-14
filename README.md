@@ -13,6 +13,7 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    
    ```
    git clone https://github.com/danielemurgolo/Survey.git
+   cd Survey
    ```
    
 2. Create a virtual environment (recommended but optional):
@@ -33,6 +34,7 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    python manage.py migrate
    python manage.py cities_light
    ```
+   This step may take some minutes, don't worry if the installation gets stuck.
 
 5. Create superuser (Admin):
    ```
@@ -43,3 +45,10 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    ```
    python manage.py runserver
    ```
+   With this command, the server runs on localhost:8000. If wanted, you can deploy using your IP or deploy using [Heroku](https://devcenter.heroku.com/articles/deploying-python)
+   
+## Usage
+
+When accessing the web application, for example at http://localhost:8000, the empty home page should look like this:
+
+
