@@ -63,6 +63,8 @@ The first step to take is to go to the admin page, http://localhost:8000/admin, 
 
 ![Admin Log In page](images/admin_login.png)
 
-You should log in using the credentials you created using the command ```python manage.py createsuperuser```. After logging in the admin page looks like this:
+You should log in using the credentials you created using the command ```python manage.py createsuperuser```. After logging in, the admin page looks like this:
 
+![Admin Page](images/admin_page.png)
 
+Now, to create a survey you can press on ```Surveys``` and then press 
