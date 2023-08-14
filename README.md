@@ -92,9 +92,9 @@ https://github.com/danielemurgolo/Survey/assets/98823551/11dd3d76-d5bc-4438-acc8
 ### Creating a Question
 
 You can create three different types of questions:
-* Country Question: This question serves to determine both the respondent's country and region. This approach facilitates data collection while maintaining a satisfactory level of user anonymity.
-* Integer Question: This question helps identify the number of individuals within the respondent's network who possess a specific trait. For instance, one might ask, "How many people do you know who have experienced Fever?"
-* Radio Question: This question assists in collecting pertinent information about the population, enhancing the study's relevance. For example, a query such as "What is your gender?" falls under this category.
+* **Country Question**: This question serves to determine both the respondent's country and region. This approach facilitates data collection while maintaining a satisfactory level of user anonymity.
+* **Integer Question**: This question helps identify the number of individuals within the respondent's network who possess a specific trait. For instance, one might ask, "How many people do you know who have experienced Fever?"
+* **Radio Question**: This question assists in collecting pertinent information about the population, enhancing the study's relevance. For example, a query such as "What is your gender?" falls under this category.
 
 To create, modify, and delete each question, you can perform the same operations as demonstrated for the Survey. The only exception is that you will need to choose the specific Survey to which you want to assign the question. Furthermore, when dealing with Radio Questions, you will be required to craft "Radio Answers" for each one and subsequently allocate them to the corresponding Radio Question. Here are concise examples illustrating how to create each type of question:
 
