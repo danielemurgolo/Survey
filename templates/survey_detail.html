@@ -7,23 +7,29 @@
 <form method="POST" id="surveyForm">
 
     {% csrf_token %}
-    <a href="#">+ Add a radio question</a>
+    <p>
     {% for question in  radio_questions%}
-    <p>{{question.text}}</p>
-    {% for answer in  question.radioanswer_set.all%}
-    <label>
-        <input type="radio" name="radio_question_{{question.id}}" value="{{answer.id}}">
-        {{answer.text}}
-    </input>
+    <p>
+      <p>{{question.text}}</p>
+      {% for answer in  question.radioanswer_set.all%}
+      <label>
+          <input type="radio" name="radio_question_{{question.id}}" value="{{answer.id}}">
+          {{answer.text}}
+      </input>  
+      {% endfor %}
+    </p>
     {% endfor %}
-    {% endfor %}
+  </p>
 
     {% for question in  integer_questions%}
-    <p>{{question.text}}</p>
-    <input type="number" name="integer_question_{{question.id}}" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+    <p>
+      <p>{{question.text}}</p>
+      <input type="number" name="integer_question_{{question.id}}" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+    </p>
     {% endfor %}
 
     {% if country_question %}
+    <p>
     <p>{{country_question.text}}</p>
     <select name="country" id="id_country">
         <option value="">Select a country</option>
@@ -37,6 +43,7 @@
         <option value="{{region.id}}">{{region.name}}</option>
         {% endfor %} {% endcomment %}
     </select>
+  </p>
     {% endif %}
     <p>
     <button type="submit">Submit</button>
