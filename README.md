@@ -61,7 +61,7 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    
 ## Usage
 
-For this tutorial, we are going to show the steps you need to take to create your survey. We are going to consider the URL of the web app as HTTP:localhost:8000, you should replace it with your own URL.
+For this tutorial, we are going to show the steps you need to take to create your survey. We are going to consider the URL of the web app as http//:localhost:8000, you should replace it with your own URL.
 
 ### Home Page
 
@@ -116,7 +116,11 @@ https://github.com/danielemurgolo/Survey/assets/98823551/75437f2f-e097-478f-8e0c
 ### Complete Example
 
 
+If you want to try the example that we implemented in the video below, you can do so by running the following command:
 
+```
+./install_example.sh
+```
 
 https://github.com/danielemurgolo/Survey/assets/98823551/4554895e-d658-4e06-ae06-60426f170cbc
 
