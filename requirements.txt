@@ -1,5 +1,5 @@
 asgiref==3.6.0
-Django==4.2
+Django==4.2.3
 django-autoslug==1.9.9
 django-cities-light==3.9.2
 django-nested-inline==0.4.6
