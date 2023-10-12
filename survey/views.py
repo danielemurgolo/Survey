@@ -9,6 +9,7 @@ from django.forms import inlineformset_factory
 from .models import Survey, RadioQuestion, RadioAnswer, IntegerQuestion, CountryQuestion
 from .models import Response, RadioResponse, IntegerResponse, CountryResponse
 from cities_light.models import Country, Region
+from django.contrib import messages
 
 # Create your views here.
 
@@ -36,6 +37,13 @@ class SurveyDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         survey = self.get_object()
         response = Response.objects.create(survey=survey)
+        errors = self.validate_survey_completion(request.POST)
+        if errors:
+            messages.error(
+                request, "Please complete all fields before submitting the survey."
+            )
+
+            return redirect(reverse("survey:detail", kwargs={"pk": survey.pk}))
 
         for key, value in request.POST.items():
             if key.startswith("radio_question_"):
@@ -67,6 +75,24 @@ class SurveyDetailView(DetailView):
                     Q(response=response) & Q(question=question)
                 ).update(region=Region.objects.get(id=int(value)))
         return redirect(reverse("survey:thank_you"))
+
+    def validate_survey_completion(self, post_data):
+        # Validate that all required fields are completed
+        errors = []
+
+        for question in self.get_object().radioquestion_set.all():
+            if f"radio_question_{question.id}" not in post_data:
+                errors.append(f"Please select an answer for question: {question.text}")
+
+        for question in self.get_object().integerquestion_set.all():
+            if f"integer_question_{question.id}" not in post_data:
+                errors.append(f"Please enter a value for question: {question.text}")
+
+        if self.get_object().countryquestion_set.exists():
+            if "country" not in post_data or "region" not in post_data:
+                errors.append("Please select a country and region.")
+
+        return errors
 
 
 class ThankYouView(View):

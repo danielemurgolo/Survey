@@ -4,6 +4,14 @@
 <h2>{{survey.name}}</h2>
 <h3>{{survey.description}}</h3>
 
+{% if messages %}
+<h3 class="messages" style="color:red;">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</h3>
+{% endif %}
+
 <form method="POST" id="surveyForm">
 
     {% csrf_token %}
