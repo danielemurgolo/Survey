@@ -4,6 +4,7 @@ Welcome to the Survey Data Collection System! This system aims to efficiently ga
 ## Table of contents
 - [Key Features](#key-features)
 - [Installation](#installation)
+- [Security Recommendation](#security-recommendation)
 - [Usage](#usage)
    - [Home Page](#home-page)
    - [Admin Page](#admin-page)
@@ -23,25 +24,25 @@ Our mission is to provide a robust system that generates valuable insights, aidi
 
 1. Clone the repository:
    
-   ```
+   ```bash
    git clone https://github.com/danielemurgolo/Survey.git
    cd Survey
    ```
    
 2. Create a virtual environment (recommended but optional):
-   ```
+   ```bash
    python -m venv .venv
    source .venv/bin/activate
    ```
 
 3. Install dependencies:
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
 4. Apply database migration:
 
-   ```
+   ```bash
    python manage.py makemigrations
    python manage.py migrate
    python manage.py cities_light
@@ -49,15 +50,31 @@ Our mission is to provide a robust system that generates valuable insights, aidi
    This step may take some minutes, don't worry if the installation gets stuck.
 
 5. Create superuser (Admin):
-   ```
+   ```bash
    python manage.py createsuperuser
    ```
 
 6. Start server:
-   ```
+   ```bash
    python manage.py runserver
    ```
    With this command, the server runs on localhost:8000. If wanted, you can deploy using your IP or deploy using [Heroku](https://devcenter.heroku.com/articles/deploying-python)
+
+## Security Recommendation
+
+For enhanced security, it is advisable to periodically update the `SECRET_KEY` in your Django project. You can generate a new random key using the following command:
+
+```bash
+python -c "import secrets; print(secrets.token_urlsafe())"
+```
+To update the SECRET_KEY in your Django project:
+
+1. Copy the output of the command.
+2. Open your settings.py file.
+3. Locate the SECRET_KEY variable.
+4. Replace the current value with the newly generated key.
+
+This practice helps strengthen your application's security by regularly rotating the secret key used for cryptographic operations.
    
 ## Usage
 
@@ -118,7 +135,7 @@ https://github.com/danielemurgolo/Survey/assets/98823551/75437f2f-e097-478f-8e0c
 
 If you want to try the example that we implemented in the video below, you can do so by running the following command:
 
-```
+```bash
 ./install_example.sh
 ```
 
